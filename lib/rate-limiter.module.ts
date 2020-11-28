@@ -23,7 +23,9 @@ export class RateLimiterModule {
 	}
 
 	private static createAsyncProviders(options: RateLimiterModuleAsyncOptions): Provider[] {
+		/* istanbul ignore next */
 		if (options.useExisting || options.useFactory) {
+			/* istanbul ignore next */
 			return [this.createAsyncOptionsProvider(options)]
 		}
 		return [
@@ -36,13 +38,16 @@ export class RateLimiterModule {
 	}
 
 	private static createAsyncOptionsProvider(options: RateLimiterModuleAsyncOptions): Provider {
+		/* istanbul ignore next */
 		if (options.useFactory) {
+			/* istanbul ignore next */
 			return {
 				provide: 'RATE_LIMITER_OPTIONS',
 				useFactory: options.useFactory,
 				inject: options.inject || []
 			}
 		}
+		/* istanbul ignore next */
 		return {
 			provide: 'RATE_LIMITER_OPTIONS',
 			useFactory: async (optionsFactory: RateLimiterOptionsFactory) => optionsFactory.createRateLimiterOptions(),

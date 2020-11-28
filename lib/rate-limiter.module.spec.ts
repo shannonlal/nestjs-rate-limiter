@@ -1,6 +1,6 @@
-import { DynamicModule, Provider } from '@nestjs/common'
+import { DynamicModule, Provider, Type } from '@nestjs/common'
 import { RateLimiterModule } from './rate-limiter.module'
-import { RateLimiterOptions, RateLimiterModuleAsyncOptions } from './rate-limiter.interface'
+import { RateLimiterOptions, RateLimiterModuleAsyncOptions, RateLimiterOptionsFactory } from './rate-limiter.interface'
 
 describe('RateLimiterModule', () => {
 	it('should validate that RateLimiterModule exists', async () => {
@@ -50,4 +50,26 @@ describe('RateLimiterModule', () => {
 		expect(rateLimitOptionsProvider.useFactory).toBeDefined()
 		expect(rateLimitOptionsProvider.inject).toBeDefined()
 	})
+
+	/*it('should register async RateLimiterModule with options useExisting', async () => {
+
+		const existing: Type<RateLimiterOptionsFactory> = {
+			createRateLimiterOptions: (): => {
+
+			}
+		}
+		const rateLimiterOptions: RateLimiterModuleAsyncOptions = {
+			useExisting: existing
+		}
+
+		const registeredDynamicModule: DynamicModule = RateLimiterModule.registerAsync(rateLimiterOptions)
+
+		expect(registeredDynamicModule).toBeDefined()
+		expect(typeof registeredDynamicModule.module).toBeDefined()
+		expect(registeredDynamicModule.providers.length).toBe(2)
+		const rateLimitOptionsProvider: any = registeredDynamicModule.providers[0]
+		expect(rateLimitOptionsProvider.provide).toBe('RATE_LIMITER_OPTIONS')
+		expect(rateLimitOptionsProvider.useFactory).toBeDefined()
+		expect(rateLimitOptionsProvider.inject).toBeDefined()
+	})*/
 })
