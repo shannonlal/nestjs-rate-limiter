@@ -5,9 +5,20 @@ import { RateLimit } from '../../../../../../dist';
 
 
 // 1. queueEnabled
+// -- queueEnabled
+// -- duration
 // 2. maxQueueSize
+// -- queueEnabled
+// -- duration
+// -- maxQueueSize
+// --- Should return 429 errorCode once exceeds
 // 3. blockDuration
+// -- duration
+// -- pointsConsumed
+// -- blockDuration
 // 4.  duration
+// -- pointsConsumed
+// -- duration
 // 5. inmemoryBlockDuration
 
 @Controller('queue')
