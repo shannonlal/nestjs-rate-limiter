@@ -28,9 +28,10 @@ export class QueueController {
   @RateLimit({
     points: 3,
     duration: 2,
+    queueEnabled: false,
     errorMessage: 'Accounts cannot be created more than once in per minute' })
-  @Get()
-  async getPoints() {
+  @Get('/disabled')
+  async getQueueDisabled() {
     try{
       const resp = await this.appService.getData();
       return resp;
@@ -40,12 +41,25 @@ export class QueueController {
   }
 
   @RateLimit({
-    points: 1,
-    pointsConsumed: 1,
-    duration: 2,
+    duration: 1,
+    queueEnabled: true,
     errorMessage: 'Accounts cannot be created more than once in per minute' })
-  @Get('/consumed')
-  async getPointsConsumed() {
+  @Get('/enabled')
+  async getQueueEnabled() {
+    try{
+      const resp = await this.appService.getData();
+      return resp;
+    }catch(err){
+      throw err;
+    }
+  }
+
+  @RateLimit({
+    duration: 2,
+    queueEnabled: true,
+    errorMessage: 'Accounts cannot be created more than once in per minute' })
+  @Get('/enabled-long')
+  async getQueueEnabledLong() {
     try{
       const resp = await this.appService.getData();
       return resp;
@@ -54,3 +68,6 @@ export class QueueController {
     }
   }
 }
+
+
+// testQueueLongEnabled
