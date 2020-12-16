@@ -12,7 +12,7 @@ const execute = async () => {
 
         assert (await testQueueDisabled(BASE_URL) );
 
-        //assert (await testQueueEnabled(BASE_URL));
+        assert (await testQueueEnabled(BASE_URL));
 
         assert (await testQueueLongEnabled(BASE_URL));
         process.exit(1);

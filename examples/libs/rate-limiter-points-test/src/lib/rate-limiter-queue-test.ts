@@ -29,7 +29,7 @@ export const testQueueEnabled = async ( url: string): Promise<boolean> => {
     url: `${url}${POINTS_CONSUMED_ROUTE}/enabled`,
     maxRequests: 5,
     maxSeconds: 1,
-    timeout: 3100
+    timeout: 1100
   };
   try{
     await wait(2000);
@@ -47,7 +47,7 @@ export const testQueueEnabled = async ( url: string): Promise<boolean> => {
 
 export const testQueueLongEnabled = async ( url: string): Promise<boolean> => {
   const options: LoadTestOptions  = {
-    url: `${url}${POINTS_CONSUMED_ROUTE}/enabled-long`,
+    url: `${url}${POINTS_CONSUMED_ROUTE}/enabledlong`,
     maxRequests: 4,
     maxSeconds: 3,
     timeout: 3000

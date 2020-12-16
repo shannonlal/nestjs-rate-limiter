@@ -4,6 +4,7 @@ import { AppService } from '../services/app.service';
 import { RateLimit } from '../../../../../../dist';
 
 
+// Need to set the Max Queue.  It is a combination of duration and MAX Queue size that will throgh the error
 // 1. queueEnabled
 // -- queueEnabled
 // -- duration
@@ -42,6 +43,7 @@ export class QueueController {
 
   @RateLimit({
     duration: 1,
+    maxQueueSize: 4,
     queueEnabled: true,
     errorMessage: 'Accounts cannot be created more than once in per minute' })
   @Get('/enabled')
@@ -58,7 +60,7 @@ export class QueueController {
     duration: 2,
     queueEnabled: true,
     errorMessage: 'Accounts cannot be created more than once in per minute' })
-  @Get('/enabled-long')
+  @Get('/enabledlong')
   async getQueueEnabledLong() {
     try{
       const resp = await this.appService.getData();
