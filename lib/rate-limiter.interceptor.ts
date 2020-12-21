@@ -153,8 +153,11 @@ export class RateLimiterInterceptor implements NestInterceptor {
 		const response = this.httpHandler(context).res
 
 		const rateLimiter: RateLimiterAbstract = await this.getRateLimiter(reflectedOptions)
+		console.log( 'ip', request.ip);
 		const key = request.ip.replace(/^.*:/, '')
 
+		console.log( 'Key', key);
+		console.log('Rate Limiter', rateLimiter);
 		await this.responseHandler(response, key, rateLimiter, points, pointsConsumed)
 		return next.handle()
 	}

@@ -73,6 +73,36 @@ export class QueueController {
       throw err;
     }
   }
+
+  @RateLimit({
+    blackList:['1'],
+    errorMessage: 'IP Addresss Has been black listed' })
+  @Get('/blacklist')
+  async blockLocalOnly() {
+    try{
+      console.log( 'IP Address')
+      const resp = await this.appService.getData();
+      return resp;
+    }catch(err){
+      throw err;
+    }
+  }
+
+  @RateLimit({
+    points:1,
+    duration:10,
+    whiteList:['192.168.0.101'],
+    errorMessage: 'IP Addresss Has been black listed' })
+  @Get('/whitelist')
+  async allowLocal() {
+    try{
+      console.log( 'Allow Traffic')
+      const resp = await this.appService.getData();
+      return resp;
+    }catch(err){
+      throw err;
+    }
+  }
 }
 
 
