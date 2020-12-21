@@ -27,9 +27,9 @@ export const testQueueDisabled = async ( url: string): Promise<boolean> => {
 export const testQueueEnabled = async ( url: string): Promise<boolean> => {
   const options: LoadTestOptions  = {
     url: `${url}${POINTS_CONSUMED_ROUTE}/enabled`,
-    maxRequests: 5,
-    maxSeconds: 1,
-    timeout: 1100
+    maxRequests: 10,
+    maxSeconds: 4,
+    timeout: 1000
   };
   try{
     await wait(2000);
@@ -37,7 +37,7 @@ export const testQueueEnabled = async ( url: string): Promise<boolean> => {
 
     console.log( 'Queue Enabled Response', response);
 
-    return (response.totalRequests === 5 && response.totalErrors === 0 );
+    return (response.totalRequests === 10 && response.totalErrors === 0 );
   }catch( err ){
     // tslint:disable-next-line: no-console
     console.log( `Unexpected error testing points consumed ${err}`)
@@ -45,15 +45,17 @@ export const testQueueEnabled = async ( url: string): Promise<boolean> => {
   }
 }
 
-export const testQueueLongEnabled = async ( url: string): Promise<boolean> => {
+export const testQueueTooSmall = async ( url: string): Promise<boolean> => {
   const options: LoadTestOptions  = {
-    url: `${url}${POINTS_CONSUMED_ROUTE}/enabledlong`,
-    maxRequests: 4,
+    url: `${url}${POINTS_CONSUMED_ROUTE}/toosmall`,
+    maxRequests: 20,
     maxSeconds: 3,
-    timeout: 3000
+    concurrency: 20,
+    requestsPerSecond: 30,
+    timeout: 100
   };
   try{
-    await wait(2000);
+    // await wait(2000);
     const response: LoadTestResponse = await runLoadTest( options );
 
     console.log( 'Queue Long Enabled Response', response);

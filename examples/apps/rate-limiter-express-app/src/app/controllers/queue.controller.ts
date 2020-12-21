@@ -42,14 +42,17 @@ export class QueueController {
   }
 
   @RateLimit({
-    duration: 1,
-    maxQueueSize: 4,
+    points: 10,
+    pointsConsumed:1,
+    duration: 2,
+    maxQueueSize: 10,
     queueEnabled: true,
     errorMessage: 'Accounts cannot be created more than once in per minute' })
   @Get('/enabled')
   async getQueueEnabled() {
     try{
       const resp = await this.appService.getData();
+      console.log( 'Got a response', resp);
       return resp;
     }catch(err){
       throw err;
@@ -57,11 +60,12 @@ export class QueueController {
   }
 
   @RateLimit({
-    duration: 2,
+    duration: 10,
+    maxQueueSize: 10,
     queueEnabled: true,
-    errorMessage: 'Accounts cannot be created more than once in per minute' })
-  @Get('/enabledlong')
-  async getQueueEnabledLong() {
+    errorMessage: 'Not enough space on the queue' })
+  @Get('/toosmall')
+  async getQueueTooSmall() {
     try{
       const resp = await this.appService.getData();
       return resp;
