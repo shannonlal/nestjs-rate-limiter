@@ -10,29 +10,23 @@ export class PointsController {
   @RateLimit({
     points: 3,
     duration: 2,
+    keyPrefix: 'points',
     errorMessage: 'Accounts cannot be created more than once in per minute' })
   @Get()
   async getPoints() {
-    try{
       const resp = await this.appService.getData();
       return resp;
-    }catch(err){
-      throw err;
-    }
   }
 
   @RateLimit({
     points: 1,
     pointsConsumed: 1,
     duration: 2,
+    keyPrefix: 'points-consumed',
     errorMessage: 'Accounts cannot be created more than once in per minute' })
   @Get('/consumed')
   async getPointsConsumed() {
-    try{
       const resp = await this.appService.getData();
       return resp;
-    }catch(err){
-      throw err;
-    }
   }
 }
