@@ -9,18 +9,13 @@ export class AppService {
   }
 
   async getLongData( timeout: number): Promise<{ message: string }>  {
+    return new Promise( resolve => {
 
-    try{
-      return new Promise( resolve => {
-
-        setTimeout( () => {
-          return resolve({message:'Welcome to rate-limiter-express-app!'});
-        }, timeout);
-        
-      })
-    }catch(err){
-      throw err;
-    }
+      setTimeout( () => {
+        return resolve({message:'Welcome to rate-limiter-express-app!'});
+      }, timeout);
+      
+    })
   }
 
 }

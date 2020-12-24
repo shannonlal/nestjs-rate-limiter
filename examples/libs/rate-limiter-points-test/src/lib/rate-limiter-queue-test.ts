@@ -1,5 +1,4 @@
 import { runLoadTest, LoadTestResponse, LoadTestOptions, wait } from '@examples/loadtest-common';
-import { watchFile } from 'fs';
 
 const POINTS_CONSUMED_ROUTE = '/queue';
 
