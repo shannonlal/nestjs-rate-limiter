@@ -14,8 +14,6 @@ export const testQueueDisabled = async ( url: string): Promise<boolean> => {
     await wait(2000);
     const response: LoadTestResponse = await runLoadTest( options );
 
-    console.log( 'Queue Response', response);
-
     return (response.totalRequests === 5 && response.totalErrors === 2 );
   }catch( err ){
     // tslint:disable-next-line: no-console
@@ -35,8 +33,6 @@ export const testQueueEnabled = async ( url: string): Promise<boolean> => {
     await wait(2000);
     const response: LoadTestResponse = await runLoadTest( options );
 
-    console.log( 'Queue Enabled Response', response);
-
     return (response.totalRequests === 10 && response.totalErrors === 0 );
   }catch( err ){
     // tslint:disable-next-line: no-console
@@ -49,18 +45,14 @@ export const testQueueTooSmall = async ( url: string): Promise<boolean> => {
   const options: LoadTestOptions  = {
     url: `${url}${POINTS_CONSUMED_ROUTE}/toosmall`,
     maxRequests: 20,
-    maxSeconds: 3,
-    concurrency: 20,
-    requestsPerSecond: 30,
-    timeout: 100
+    maxSeconds: 5,
+    concurrency: 1,
+    timeout: 500,
   };
   try{
-    // await wait(2000);
     const response: LoadTestResponse = await runLoadTest( options );
 
-    console.log( 'Queue Long Enabled Response', response);
-
-    return (response.totalRequests === 5 && response.totalErrors === 0 );
+    return (response.totalRequests === 20 && response.totalErrors > 0);
   }catch( err ){
     // tslint:disable-next-line: no-console
     console.log( `Unexpected error testing points consumed ${err}`)
